@@ -1,10 +1,8 @@
-class Membership:
+class MembershipClass:
     def __init__(self):
-        self.temp='s'
-        self.subscriptions=['bronz','silver','gold','diamond']
+        self.subscriptions = ['bronze', 'silver', 'gold', 'diamond']
 
-    def select_member(self,opt):
-        if opt in self.subscriptions:
-            return self.subscriptions[opt]
-        else:
-            return " "
+    def buy_ship(self, option):
+        if option in self.subscriptions:
+            return option
+
