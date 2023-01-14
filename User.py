@@ -1,8 +1,6 @@
 from __future__ import annotations
-
 from Membership import MembershipClass
 from ChatBot import ChatBotClass
-
 from typing import Callable
 
 
@@ -41,6 +39,7 @@ def apply_subscription(member: Member) -> float:
 class Admin:
     def __init__(self):
         self.name = "admin"
+        self.password = "admin"
 
     def show_info(self):
         return "Admin created " + self.name
@@ -56,9 +55,12 @@ class Member:
         self.upload_limit = 25
         self.limit_strategy = limit_strategy
 
+    def upload_pic(self):
+        return 'Uploaded pics'
+
     def talk_chatbot(self):
-        bot = ChatBotClass()
-        return 'member ' + bot.talk()
+        bot = ChatBotClass(self.name)
+        return 'Food2Gather ChatBot: '+bot.talk()
 
     def buy_membership(self, option):
         ship = MembershipClass()
@@ -66,15 +68,14 @@ class Member:
         self.upload_limit = apply_subscription(self)
 
     def show_info(self):
-        return "Member ::: " + self.name + " " + str(self.membership) + " " + str(self.upload_limit)
-
+        return "Member Infos : " + str(self.name) + " " + str(self.membership) + " " + str(self.upload_limit)
 
 
 def UserFactory(type) -> object:
     """Factory"""
     Users = {
-        "Admin": Admin,
-        "Member": Member,
+        "Admin": Admin(),
+        "Member": Member(),
     }
 
-    return Users[type]()
+    return Users[type]

@@ -1,29 +1,29 @@
 import streamlit as st
 from User import UserFactory
-from Authentication import Authenticator
-
+from DataBaseClass import DataBaseClass
 
 main = st.container()
 result = st.container()
+member = st.button('member')
 chat = st.button('chat')
 
 with main:
     st.title('Food2Gather')
-    member = st.button('Member')
 
+    DB = DataBaseClass()
+    DB.create_default_db()
 
 with result:
-   test = Authenticator()
+    name = st.text_input('Enter name of the member')
+    user1 = UserFactory('Member')
+    user1.name = name
 
-   user1 = UserFactory('Member')
-   st.write(user1.show_info())
-   user1.membership = "premium"
-   st.write(user1.show_info())
+    option = st.selectbox('select', ('bronze', 'silver', 'gold', 'diamond'))
 
-   option = st.selectbox('select',('bronze', 'silver', 'gold', 'diamond'))
-   user1.buy_membership(option)
-   st.write(user1.show_info())
+    user1.buy_membership(option)
 
+    st.write(user1.show_info())
 
-if chat:
-    st.write(user1.talk_chatbot())
+    if chat:
+        st.write(user1.talk_chatbot())
+

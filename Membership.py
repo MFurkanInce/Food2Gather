@@ -5,4 +5,3 @@ class MembershipClass:
     def buy_ship(self, option):
         if option in self.subscriptions:
             return option
-
