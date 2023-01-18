@@ -5,10 +5,14 @@ class PicClass:
         self.height = 1080
         self.photos = self.get_default_photos()
 
+
     def get_pic_shape(self):
         return self.weight, self.height
 
     def get_default_photos(self):
-        photos =[]
-        #get default photos
+        photos = []
+        # get default photos
         return photos
+
+    def add_pic(self, input):
+        self.photos.append(input)

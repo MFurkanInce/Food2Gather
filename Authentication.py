@@ -16,5 +16,3 @@ class Authenticator:
         self.Users.append("Dincer")
         self.Users.append("Kaan")
         self.Users.append("Ince")
-
-

@@ -1,15 +1,19 @@
 from __future__ import annotations
+import DataBaseClass
 from Membership import MembershipClass
 from ChatBot import ChatBotClass
 from typing import Callable
+from DataBaseClass import DataBaseClass
 
 
-class LimitStrategyValidator:  # Descriptor class for check perform
+class LimitStrategyValidator:
+    'STRATEGY'
+
     @staticmethod
     def validate(obj: Member, value: Callable) -> bool:
         ship = MembershipClass()
         print(value)
-        if value in ship.subscriptions:
+        if value in ship.subscription_type:
             return True
         else:
             print('validate error')
@@ -27,12 +31,13 @@ class LimitStrategyValidator:  # Descriptor class for check perform
     def __get__(self, obj: object, objtype: type = None):
         return getattr(obj, self.private_name)
 
+
 def apply_subscription(member: Member) -> float:
     ship = MembershipClass()
     subs = member.membership
-    for num, sub in enumerate(ship.subscriptions):
+    for num, sub in enumerate(ship.subscription_type):
         if subs == sub:
-            member.upload_limit = (num+1) * 25
+            member.upload_limit = (num + 1) * 25
             return member.upload_limit
 
 
@@ -44,6 +49,9 @@ class Admin:
     def show_info(self):
         return "Admin created " + self.name
 
+    def db_update(self):
+        return 'do something'
+
 
 class Member:
     limit_strategy = LimitStrategyValidator()
@@ -51,16 +59,17 @@ class Member:
     def __init__(self, limit_strategy: Callable = None):
         self.name = "Ahmet"
         self.password = "XXX123"
-        self.membership = "bronze"
+        self.membership_type = "bronze"
         self.upload_limit = 25
         self.limit_strategy = limit_strategy
 
-    def upload_pic(self):
-        return 'Uploaded pics'
+    def upload_pic(self, pic):
+        db = DataBaseClass()
+        db.load_pics(pic)
 
     def talk_chatbot(self):
         bot = ChatBotClass(self.name)
-        return 'Food2Gather ChatBot: '+bot.talk()
+        return 'Food2Gather ChatBot: ' + bot.talk()
 
     def buy_membership(self, option):
         ship = MembershipClass()
@@ -71,11 +80,12 @@ class Member:
         return "Member Infos : " + str(self.name) + " " + str(self.membership) + " " + str(self.upload_limit)
 
 
-def UserFactory(type) -> object:
-    """Factory"""
-    Users = {
-        "Admin": Admin(),
-        "Member": Member(),
-    }
+class UserFactory:
+    def Factory(type) -> object:
+        'FACTORY'
+        Users = {
+            "Admin": Admin,
+            "Member": Member,
+        }
 
-    return Users[type]
+        return Users[type]()

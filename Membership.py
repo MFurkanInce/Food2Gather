@@ -1,7 +1,7 @@
 class MembershipClass:
     def __init__(self):
-        self.subscriptions = ['bronze', 'silver', 'gold', 'diamond']
+        self.subscription_type = ['bronze', 'silver', 'gold', 'diamond']
 
     def buy_ship(self, option):
-        if option in self.subscriptions:
+        if option in self.subscription_type:
             return option

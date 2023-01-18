@@ -15,7 +15,7 @@ with main:
 
 with result:
     name = st.text_input('Enter name of the member')
-    user1 = UserFactory('Member')
+    user1 = UserFactory.Factory('Member')
     user1.name = name
 
     option = st.selectbox('select', ('bronze', 'silver', 'gold', 'diamond'))
