@@ -16,3 +16,5 @@ class PicClass:
 
     def add_pic(self, input):
         self.photos.append(input)
+
+#Food2Gather V2.01 will add def resize_pics()
