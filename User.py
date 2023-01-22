@@ -37,7 +37,7 @@ def apply_subscription(member: Member) -> float:
     subs = member.membership
     for num, sub in enumerate(ship.subscription_type):
         if subs == sub:
-            member.upload_limit = (num + 1) * 25
+            member.upload_limit = (num + 1) * 50
             return member.upload_limit
 
 
@@ -64,7 +64,7 @@ class Member:
         self.limit_strategy = limit_strategy
 
     def upload_pic(self, pic):
-        db = DataBaseClass()
+        db = DataBaseClass.get_instance()
         db.load_pics(pic)
 
     def talk_chatbot(self):
